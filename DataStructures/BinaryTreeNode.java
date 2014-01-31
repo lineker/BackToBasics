@@ -1,6 +1,6 @@
 package DataStructures;
 
-public class BinaryTreeNode<T> {
+public class BinaryTreeNode<T> implements Cloneable {
 	private BinaryTreeNode<T> left = null;
 	private BinaryTreeNode<T> right = null;
 	private int key;
@@ -54,5 +54,12 @@ public class BinaryTreeNode<T> {
 		if(current.getLeft() != null) sb.append(toString(current.getLeft(), indentation));
 		if(current.getRight() != null) sb.append(toString(current.getRight(), indentation));
 		return sb.toString();
+	}
+	
+	@Override
+	public BinaryTreeNode<?> clone() {
+		BinaryTreeNode<T> newN = new BinaryTreeNode<T>(this.key,this.left, this.right);
+		newN.setData(this.getData());
+		return newN;
 	}
 }

@@ -105,9 +105,39 @@ public class BinarySearchTree<T> {
 		return null;
 	}
 	
+	public BinaryTreeNode<T> MinCommonAncestor(int key1, int key2) {
+		
+		return MinCommonAncestor(key1, key2, this.root);
+	}
+	
+	/**
+	 * Assumes key1 and key2 exist in the tree
+	 * @param key1
+	 * @param key2
+	 * @param node
+	 * @return
+	 */
+	public BinaryTreeNode<T> MinCommonAncestor(int key1, int key2, BinaryTreeNode<T> node) {
+		if(node != null)  {
+			if(key1 < node.getKey() && key2 < node.getKey()) {
+				if(key1 == key2 && node.getLeft().getKey() == key1) return node;
+				return MinCommonAncestor(key1, key2, node.getLeft());
+			} else if(key1 > node.getKey() && key2 > node.getKey()) {
+				if(key1 == key2 && node.getRight().getKey() == key1) return node;
+				return MinCommonAncestor(key1, key2, node.getRight());
+			} else if((key1 <= node.getKey() && key2 >= node.getKey()) || 
+					  (key1 >=node.getKey() && key2 <= node.getKey())){
+				return node;
+			}
+		}
+		return null;
+	}
+	
 	public BinaryTreeNode<T> getRoot() {
 		return root;
 	}
+	
+	
 	public void setRoot(BinaryTreeNode<T> root) {
 		this.root = root;
 	}
